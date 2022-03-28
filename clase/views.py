@@ -3,6 +3,7 @@ from django.shortcuts import render
 from clase.models import Curso
 import random
 from django.http import HttpResponse
+from clase.forms import CursoFormulario, BusquedaCurso
 
 # Create your views here.
 
@@ -15,11 +16,45 @@ def nuevo_curso(request):
 
 def formulario_curso(request):
     
-    print(request.method)
-    if request.method == 'POST':
-        print(request.POST)
-        nuevo_curso = Curso(nombre=request.POST['curso'], camada=request.POST['camada'])
-        nuevo_curso.save()
-        return render(request, 'clase/formulario_curso.html',{'nuevo_curso':nuevo_curso})
+    # SIN FORMULARIOS DE DJANGO
+    # print(request.method)
+    # if request.method == 'POST':
+    #     print(request.POST)
+    #     nuevo_curso = Curso(nombre=request.POST['curso'], camada=request.POST['camada'])
+    #     nuevo_curso.save()
+    #     return render(request, 'indice/index.html',{'nuevo_curso':nuevo_curso})
     
-    return render(request, 'clase/formulario_curso.html',{})
+    # return render(request, 'clase/formulario_curso.html',{})
+    
+    
+    #CON FORMUALRIO DE DJANGO
+    if request.method == 'POST':
+        formulario = CursoFormulario(request.POST)
+        
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            nuevo_curso = Curso(nombre=data['curso'], camada=data['camada'])
+            nuevo_curso.save()
+            return render(request, 'indice/index.html',{'nuevo_curso':nuevo_curso})
+            
+        
+    formulario = CursoFormulario()   
+    return render(request, 'clase/formulario_curso.html',{'formulario':formulario})
+
+
+
+
+def busqueda_curso(request):
+    cursos_buscados = []
+    dato = request.GET.get('partial_curso', None)
+    
+    if dato is not None:
+        #cursos_buscados = Curso.objects.filter(nombre=dato)
+        #cursos_buscados = Curso.objects.get(nombre=dato)
+        cursos_buscados = Curso.objects.filter(nombre__icontains=dato)
+    
+    buscador = BusquedaCurso()
+    return render(
+            request, "clase/busqueda_curso.html",
+            {'buscador':buscador,'cursos_buscados':cursos_buscados, 'dato':dato}
+            )
