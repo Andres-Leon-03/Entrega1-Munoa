@@ -1,7 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-
 from contextvars import Context
 from urllib.error import ContentTooShortError
 from multiprocessing import context
@@ -12,8 +8,7 @@ import random
 from django.template import Context,Template,loader
 
 def inicio(request):
-    #return HttpResponse('HOLA MUNDO')
-    return render(request, "indice/index.html",{})
+    return HttpResponse('HOLA MUNDO')
 
 
 def otra_vista(request):
@@ -36,6 +31,13 @@ def numero_del_usuario(request,numero):
 
 
 def mi_plantilla(request):
+    # plantilla = open(r"C:\Users\andre\Desktop\miproyecto\miproyecto\plantillas\mi_plantilla.html")
+    # template = Template(plantilla.read())
+    # plantilla.close()
+    
+    template=loader.get_template("mi_plantilla.html")
+    
+     
     nombre="Andres"
     apellido="Muñoa"
     lista=[5,6,4,7,5525,4]
@@ -47,21 +49,8 @@ def mi_plantilla(request):
         'lista':lista
     }
     
-    #VERSION CON OPEN
-    # plantilla = open(r"C:\Users\andre\Desktop\miproyecto\miproyecto\plantillas\mi_plantilla.html")
-    # template = Template(plantilla.read())
-    # plantilla.close()
     # context = Context(diccionario_de_datos)
-    # plantilla_preparada = template.render(context) 
-  
-  
-  
-    # VERSION CON LOADER
-    # template=loader.get_template("mi_plantilla.html")
-    # plantilla_preparada = template.render(diccionario_de_datos)
-    # return HttpResponse(plantilla_preparada)
+    # plantilla_preparada = template.render(context) ESTO ES PARA EL "OPEN"
+    plantilla_preparada = template.render(diccionario_de_datos)
     
-    
-    
-    # VERSION CON RENDER
-    return render(request,"indice/mi_plantilla.html", diccionario_de_datos)
+    return HttpResponse(plantilla_preparada)

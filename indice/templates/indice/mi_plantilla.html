@@ -1,0 +1,51 @@
+{% extends 'indice/index.html' %}
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> {% endcomment %}
+    
+    <!-- {{nombre}} {{apellido}} -->
+
+    {% block bloque_head %}
+      <title>Mi plantilla</title>
+    {% endblock bloque_head %}
+
+    
+    {% block pruebaTemplate %}
+      Mi plantilla la mas vacia
+    
+      {% if nombre_largo <= 20 %}
+        <p style="color:red;">{{nombre}}</p>
+        <p style="color:blue;">{{apellido}}</p>
+      {% elif nombre_largo == 20 %}
+        <p style="color:green;">{{nombre}}</p>
+        <p style="color:green;">{{apellido}}</p>
+      {% else %}
+        <p style="color:blue;">{{nombre}}</p>
+        <p style="color:red;">{{apellido}}</p>
+      {% endif %}
+
+      {% for valor in lista %}
+        <p style="color:red">{{valor}}</p>
+      {% endfor %}
+    
+    
+    {% endblock pruebaTemplate  %}
+
+    
+    
+
+    <!-- <p style="color:red;">{{nombre}}</p>
+    <p style="color:blue;">{{apellido}}</p> -->
+
+{% comment %} </body>
+</html> {% endcomment %}
+
+<!-- "!" o "html:"" -->
+
