@@ -3,7 +3,7 @@ from django.shortcuts import render
 from clase.models import Curso
 import random
 from django.http import HttpResponse
-from clase.forms import CursoFormulario, BusquedaCurso, Farmacias, Medicamentos, Hospitales
+from clase.forms import CursoFormulario, BusquedaCurso, Farmacias, Medicamentos, Hospitales, BusquedaMedicamentos
 
 # Create your views here.
 
@@ -61,7 +61,7 @@ def busqueda_curso(request):
     
     
     
-
+# FORMULARIOS PARA EL ENTREGABLE
 
 def formulario_farmacias(request):
     if request.method == 'POST':
@@ -107,3 +107,19 @@ def formulario_hospitales(request):
         
     formulario = Farmacias()   
     return render(request, 'clase/formulario_hospitales.html',{'formulario':formulario})
+
+
+
+
+def busqueda_medicamentos(request):
+    medicamentos_buscados = []
+    dato = request.GET.get('partial_medicamento', None)
+    
+    if dato is not None:
+        medicamentos_buscados = Medicamentos.objects.filter(nombre__icontains=dato)
+    
+    buscador = BusquedaMedicamentos()
+    return render(
+            request, "clase/busqueda_medicamentos.html",
+            {'buscador':buscador,'medicamentos_buscados':medicamentos_buscados, 'dato':dato}
+    )

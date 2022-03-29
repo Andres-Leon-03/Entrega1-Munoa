@@ -16,11 +16,18 @@ class Hospitales(forms.Form):
     direccion = forms.CharField(max_length=20)
 
 
+
+class BusquedaMedicamentos(forms.Form):
+    partial_medicamento = forms.CharField(max_length=20, label='Buscador')   
+    
+    
+
 class CursoFormulario(forms.Form):
     curso = forms.CharField(max_length=20)
     camada = forms.IntegerField()
     
-    
-    
+   
+   
+
 class BusquedaCurso(forms.Form):
     partial_curso = forms.CharField(max_length=20, label='Buscador')

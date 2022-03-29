@@ -1,0 +1,35 @@
+{% extends 'indice/index.html' %}
+
+{% block header_index %}{% endblock header_index %}
+
+
+{% block pruebaTemplate %}
+    <form action={% url 'busqueda_medicamentos' %} method="get">
+        {% csrf_token %}
+        {% comment %} Curso: <input type="text" name="curso">
+        Camada: <input type="number" name="camada"> {% endcomment %}
+
+        <table>
+        {{buscador.as_table}}
+        </table>
+
+        <input type="submit" placeholder="Enviar">
+
+    </form>
+
+    {% if dato %}
+    se busco por el dato {{dato}}
+        {% for curso in cursos_buscados %}
+            <li>
+                {{curso}}
+            </li>
+        {% endfor %}
+    {% else %}
+    No se busco nada...
+    
+    {% endif %}
+
+    
+    
+
+{% endblock pruebaTemplate %}
