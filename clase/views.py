@@ -3,7 +3,7 @@ from django.shortcuts import render
 from clase.models import Curso
 import random
 from django.http import HttpResponse
-from clase.forms import CursoFormulario, BusquedaCurso
+from clase.forms import CursoFormulario, BusquedaCurso, Farmacias, Medicamentos, Hospitales
 
 # Create your views here.
 
@@ -58,3 +58,52 @@ def busqueda_curso(request):
             request, "clase/busqueda_curso.html",
             {'buscador':buscador,'cursos_buscados':cursos_buscados, 'dato':dato}
             )
+    
+    
+    
+
+
+def formulario_farmacias(request):
+    if request.method == 'POST':
+        formulario = Farmacias(request.POST)
+        
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            formulario_farmacias = Farmacias(nombre=data['nombre'], direccion=data['direccion'])
+            formulario_farmacias.save()
+            return render(request, 'indice/index.html',{'formulario_farmacias':formulario_farmacias})
+            
+        
+    formulario = Farmacias()   
+    return render(request, 'clase/formulario_farmacias.html',{'formulario':formulario})
+
+
+
+def formulario_medicamentos(request):
+    if request.method == 'POST':
+        formulario = Medicamentos(request.POST)
+        
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            formulario_medicamentos = Medicamentos(nombre=data['nombre'])
+            formulario_medicamentos.save()
+            return render(request, 'indice/index.html',{'formulario_medicamentos':formulario_medicamentos})
+            
+        
+    formulario = Farmacias()   
+    return render(request, 'clase/formulario_medicamentos.html',{'formulario':formulario})
+
+
+def formulario_hospitales(request):
+    if request.method == 'POST':
+        formulario = Hospitales(request.POST)
+        
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            formulario_hospitales = Hospitales(nombre=data['nombre'], direccion=data['direccion'])
+            formulario_hospitales.save()
+            return render(request, 'indice/index.html',{'formulario_hospitales':formulario_hospitales})
+            
+        
+    formulario = Farmacias()   
+    return render(request, 'clase/formulario_hospitales.html',{'formulario':formulario})

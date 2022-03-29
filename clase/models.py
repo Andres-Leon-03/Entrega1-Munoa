@@ -30,3 +30,20 @@ class Curso(models.Model):
     def __str__(self):
         return f"Curso: {self.nombre} - Camada: {self.camada}"
     
+   
+#CLASES PARA EL ENTREGABLE
+class Farmacias(models.Model):
+    nombre = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=20)
+    
+    
+    
+class Medicamentos(models.Model):
+    nombre = models.CharField(max_length=20)
+    
+    
+
+
+class Hospitales(models.Model):
+    nombre = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=20)
