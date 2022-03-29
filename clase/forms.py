@@ -1,24 +1,24 @@
 from django import forms
 
-class Farmacias(forms.Form):
+class FarmaciasFormulario(forms.Form):
     nombre = forms.CharField(max_length=20)
     direccion = forms.CharField(max_length=20)
     
 
-class Medicamentos(forms.Form):
+class MedicamentosFormulario(forms.Form):
     nombre = forms.CharField(max_length=20)
 
     
 
 
-class Hospitales(forms.Form):
+class HospitalesFormulario(forms.Form):
     nombre = forms.CharField(max_length=20)
     direccion = forms.CharField(max_length=20)
 
 
 
 class BusquedaMedicamentos(forms.Form):
-    partial_medicamento = forms.CharField(max_length=20, label='Buscador')   
+    partial_medicamento = forms.CharField(max_length=20, label='Buscador de medicamentos')   
     
     
 
